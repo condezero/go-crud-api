@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/go-chi/chi"
+	v1 "k8s.io/client-go/informers/apps/v1"
 )
 
 type Server struct {
@@ -18,6 +19,8 @@ func New(port string) (*Server, error) {
 	r.Get("/hc", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "healthy")
 	})
+
+	r.Mount("/api/v1", v1.New())
 	serv := &http.Server{
 		Addr:         ":" + port,
 		Handler:      r,

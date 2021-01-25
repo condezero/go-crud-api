@@ -5,12 +5,18 @@ import (
 	"os"
 	"os/signal"
 
+	"github.com/condezero/go-crud-api/internal/database"
 	"github.com/condezero/go-crud-api/internal/server"
 )
 
 func main() {
 	serv, err := server.New("5000")
 	if err != nil {
+		log.Fatal(err)
+	}
+
+	d := database.New()
+	if err := d.DB.Ping(); err != nil {
 		log.Fatal(err)
 	}
 
@@ -22,5 +28,6 @@ func main() {
 	<-c
 
 	serv.Close()
+	database.Close()
 
 }
