@@ -2,18 +2,23 @@ package database
 
 import (
 	"database/sql"
+	"fmt"
 	"io/ioutil"
 	"os"
 
+	// registering db driver
 	_ "github.com/lib/pq"
 )
 
 func getConnection() (*sql.DB, error) {
-	uri := os.Getenv("POSTGRESQL_URI")
+	uri := os.Getenv("DATABASE_CONNECTIONSTRING")
+	fmt.Printf(uri)
 	return sql.Open("postgres", uri)
 }
+
+// MakeMigration creates all the tables in the database
 func MakeMigration(db *sql.DB) error {
-	b, err := ioutil.ReadFile("migrations/migration.sql")
+	b, err := ioutil.ReadFile("./migrations/migration.sql")
 	if err != nil {
 		return err
 	}

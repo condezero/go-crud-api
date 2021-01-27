@@ -11,6 +11,7 @@ var (
 	once sync.Once
 )
 
+// Data Manage the connection
 type Data struct {
 	DB *sql.DB
 }
@@ -29,12 +30,14 @@ func initDB() {
 	}
 }
 
+// New return a new instance
 func New() *Data {
 	once.Do(initDB)
 
 	return data
 }
 
+// Close closes the resources
 func Close() error {
 	if data == nil {
 		return nil

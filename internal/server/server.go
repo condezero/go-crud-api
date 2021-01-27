@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
+	v1 "github.com/condezero/go-crud-api/internal/server/v1"
 	"github.com/go-chi/chi"
-	v1 "k8s.io/client-go/informers/apps/v1"
 )
 
 type Server struct {
